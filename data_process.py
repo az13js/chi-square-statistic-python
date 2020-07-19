@@ -39,11 +39,11 @@ def analysis(file_name, k):
             event_B = float(data_rows[i + 1]) > float(data_rows[i])
             if event_A and event_B:
                 A = A + 1
-            if not event_A and event_B:
+            if (not event_A) and event_B:
                 B = B + 1
-            if event_A and not event_B:
+            if event_A and (not event_B):
                 D = D + 1
-            if not event_A and not event_B:
+            if (not event_A) and (not event_B):
                 E = E + 1
     I = A + B + D + E
     C = A + B
