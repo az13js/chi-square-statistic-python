@@ -19,7 +19,7 @@ def believe(chi_square):
             return 1 - p[i]
     return 0.999;
 
-def analysis(file_name, k):
+def analysis(file_name, k, no_eq=False):
     # 卡方统计表和变量对应关系
     # A B C
     # D E F
@@ -39,6 +39,10 @@ def analysis(file_name, k):
         i = j * 3 + 1
         event_A = float(data_rows[i + 1]) > float(data_rows[i])
         event_B = float(data_rows[i + 2]) > float(data_rows[i + 1])
+        event_C = float(data_rows[i + 1]) < float(data_rows[i])
+        event_D = float(data_rows[i + 2]) < float(data_rows[i + 1])
+        if (no_eq and (not event_A) and (not event_C)) or ((not event_B) and (not event_D)):
+            continue
         if event_A and event_B:
             A = A + 1
         if (not event_A) and event_B:
