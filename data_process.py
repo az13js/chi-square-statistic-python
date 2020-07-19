@@ -31,20 +31,22 @@ def analysis(file_name, k):
         for row in csv.reader(csv_file):
             data_rows.append(row[k - 1])
     row_total = len(data_rows)
+    # 按照三个三个进行拆分
+    sample_total = int((row_total - 1) / 3)
     # 每次取三行总数需要减去两行
-    for i in range(1, row_total - 1):
+    for j in range(sample_total):
         # 第一行表头不用处理
-        if i > 1:
-            event_A = float(data_rows[i]) > float(data_rows[i - 1])
-            event_B = float(data_rows[i + 1]) > float(data_rows[i])
-            if event_A and event_B:
-                A = A + 1
-            if (not event_A) and event_B:
-                B = B + 1
-            if event_A and (not event_B):
-                D = D + 1
-            if (not event_A) and (not event_B):
-                E = E + 1
+        i = j * 3 + 1
+        event_A = float(data_rows[i + 1]) > float(data_rows[i])
+        event_B = float(data_rows[i + 2]) > float(data_rows[i + 1])
+        if event_A and event_B:
+            A = A + 1
+        if (not event_A) and event_B:
+            B = B + 1
+        if event_A and (not event_B):
+            D = D + 1
+        if (not event_A) and (not event_B):
+            E = E + 1
     I = A + B + D + E
     C = A + B
     F = D + E
