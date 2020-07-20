@@ -56,6 +56,10 @@ def analysis(file_name, k):
     print(A, B, C)
     print(D, E, F)
     print(G, H, I)
+    print("连续增加的概率是 %f %%" %(A / I * 100))
+    print("先减少后增加 %f %%" %(B / I * 100))
+    print("先增加后减少 %f %%" %(D / I * 100))
+    print("连续减少的概率是 %f %%" %(E / I * 100))
     squre = A * E - B * D
     chi_square = squre / C / F * squre / G / H * I
     believe_value = believe(chi_square) * 100
