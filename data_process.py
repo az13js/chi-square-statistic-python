@@ -41,7 +41,7 @@ def analysis(file_name, k, no_eq=False):
         event_B = float(data_rows[i + 2]) > float(data_rows[i + 1])
         event_C = float(data_rows[i + 1]) < float(data_rows[i])
         event_D = float(data_rows[i + 2]) < float(data_rows[i + 1])
-        if (no_eq and (not event_A) and (not event_C)) or ((not event_B) and (not event_D)):
+        if no_eq and (((not event_A) and (not event_C)) or ((not event_B) and (not event_D))):
             continue
         if event_A and event_B:
             A = A + 1
@@ -69,6 +69,12 @@ def analysis(file_name, k, no_eq=False):
     believe_value = believe(chi_square) * 100
     print("卡方统计量是：" + str(chi_square))
     print("有百分之 %.3f 的把握认为第 %d 列的数据前后变化存在关联关系" %(believe_value, k))
+    # 返回结果：列，合约名称，卡方统计量，把握，样本数，连续增加的概率，先增加后减少的概率，先减少后增加的概率，连续减少的概率
+    return (k, data_rows[0], chi_square, believe_value, I, A / I * 100, D / I * 100, B / I * 100, E / I * 100)
+
+def save_file(file_name, row):
+    with open(file_name, "a+", newline='') as file:
+        csv.writer(file).writerow(row)
 
 K = col_num(file_name)
 print("文件 \"%s\" 一共有 %d 列。" %(file_name, K))
@@ -77,5 +83,6 @@ for k in range(1, K + 1):
     # k=1时第1列不分析
     if k > 1:
         print("分析第 %d 列的数据" %(k))
-        analysis(file_name, k)
+        analysis_result = analysis(file_name, k, True)
+        save_file("result.csv", analysis_result)
         print("--------------------完成--------------------");
