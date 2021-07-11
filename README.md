@@ -1,5 +1,7 @@
 # 股票价格变化前后相关性分析工具
 
+> 目前，此仓库已经停止更新很久了。新的分析工具：[https://gitee.com/az13js/satool](https://gitee.com/az13js/satool)，可以做到更好的前后相关性分析。
+
 ## 使用方法
 
 准备文件`data_stocks.csv`，格式（至少每个股票需要100个样本数据）：
